@@ -14,10 +14,11 @@ def a_star(arena, start, end):
         # print_nodes_for_debugging(closed_nodes, "closed_nodes")
         
         if current.x == end.x and current.y == end.y:
+            # TODO: return the path itself, find a way to reconstruct and visualize
             return current.f_cost
         
+        # TODO: change this to a class method in node?
         neighbors = find_neighbors(arena, current, closed_nodes)
-        # time.sleep(1)
         for neighbor in neighbors:
             if neighbor.dist_from_node(current) < neighbor.g_cost or neighbor not in open_nodes:
                 neighbor.g_cost = neighbor.dist_from_node(start)
@@ -29,25 +30,13 @@ def a_star(arena, start, end):
     return None
 
 def find_neighbors(arena, current, closed_nodes):
-    directions = [[1,0], [0,1], [-1,0], [0,-1]]
+    directions = [[1,0], [0,1], [-1,0], [0,-1]] # allow for movement in the up, down, left, right directions, no diagonals
     neighbors = []
     for direction in directions:
         if 0 <= current.x+direction[0] < arena.height and 0 <= current.y+direction[1] < arena.width:
-            if arena.board[current.x+direction[0]][current.y+direction[1]].is_traversable() and arena.board[current.x+direction[0]][current.y+direction[1]] not in closed_nodes:
-                neighbors.append(arena.board[current.x+direction[0]][current.y+direction[1]])
-    # if current.x > 0:
-    #     if arena.board[current.x-1][current.y].is_traversable() and arena.board[current.x-1][current.y] not in closed_nodes:
-    #         neighbors.append(arena.board[current.x-1][current.y])
-    # if current.y > 0:
-    #     if arena.board[current.x][current.y-1].is_traversable() and arena.board[current.x][current.y-1] not in closed_nodes:
-    #         neighbors.append(arena.board[current.x][current.y-1])
-    # if current.x+1 < arena.height:
-    #     if arena.board[current.x+1][current.y].is_traversable() and arena.board[current.x+1][current.y] not in closed_nodes:
-    #         neighbors.append(arena.board[current.x+1][current.y])
-    # if current.y+1 < arena.width:
-    #     if arena.board[current.x][current.y+1].is_traversable() and arena.board[current.x][current.y+1] not in closed_nodes:
-    #         neighbors.append(arena.board[current.x][current.y+1])
-
+            node = arena.board[current.x+direction[0]][current.y+direction[1]]
+            if node.is_traversable() and node not in closed_nodes:
+                neighbors.append(node)
     return neighbors
 
 def print_nodes_for_debugging(nodes, name):
