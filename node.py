@@ -12,7 +12,6 @@ class Node:
         self.f_cost = 0 # g_cost + h_cost
         self.parent = None
         
-
     def dist_from_node(self, other_node):
         '''Each square is 10 units, and distances are rounded to the nearest integer.
         '''
@@ -20,7 +19,6 @@ class Node:
 
     def is_traversable(self):
         return self.val != 'x'
-
 
     def __str__(self):
         return "({},{}; f_cost={})".format(self.x, self.y, self.f_cost)

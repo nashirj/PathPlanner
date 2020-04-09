@@ -11,6 +11,11 @@ class Board:
         self.board[start.x][start.y] = start
         self.board[end.x][end.y] = end
 
+        # initialize costs for starting node w.r.t. board
+        self.start.g_cost = 0
+        self.start.h_cost = start.dist_from_node(end)
+        self.start.f_cost = start.g_cost + start.h_cost
+
     def __str__(self):
         ret = ''
         for i in range(self.height):
