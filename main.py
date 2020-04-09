@@ -1,6 +1,7 @@
 import board
 import node
 import pathfinding
+import view
 
 def test_path_found_no_obstacles(arena, start, end):
     return pathfinding.a_star(arena, start, end)
@@ -29,3 +30,5 @@ if shortest_path:
     print(shortest_path)
 else:
     print("not found")
+
+view.display_board(arena)
